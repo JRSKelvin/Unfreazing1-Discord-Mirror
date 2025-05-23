@@ -70,11 +70,6 @@ client.on('ready', async () => {
 });
 
 client.on('messageCreate', async (message) => {
-  // Skip empty messages.
-  if (!message.content.length && !message.embeds.length && !message.attachments.length) {
-    return;
-  }
-
   // Skip 'Only you can see this' messages.
   if (message.flags & MessageFlags.Ephemeral) {
     return;
@@ -125,7 +120,7 @@ client.on('messageCreate', async (message) => {
 
   for (const webhook of webhooks) {
     webhook.send({
-      content: message.content,
+      content: `${message.content}.`,
       username: message.author.username,
       avatarURL: message.author.avatarURL(),
       embeds: message.embeds
